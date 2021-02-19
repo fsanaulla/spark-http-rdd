@@ -1,0 +1,7 @@
+package com.datategy.spark.extensions
+
+import org.apache.spark.Partition
+
+import java.net.URI
+
+final case class HttpPartition(index: Int, uri: URI) extends Partition
