@@ -1,4 +1,4 @@
-package com.datategy.spark.extensions
+package org.github.fsanaulla.spark
 
 import org.apache.spark.Partition
 

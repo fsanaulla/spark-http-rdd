@@ -1,4 +1,4 @@
-package com.datategy.spark.extensions
+package org.github.fsanaulla.spark
 
 abstract class NextIterator[U] extends Iterator[U] {
 

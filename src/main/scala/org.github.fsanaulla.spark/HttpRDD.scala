@@ -1,4 +1,4 @@
-package com.datategy.spark.extensions
+package org.github.fsanaulla.spark
 
 import org.apache.http.client.methods.{CloseableHttpResponse, HttpGet}
 import org.apache.http.impl.client.{CloseableHttpClient, HttpClients}
