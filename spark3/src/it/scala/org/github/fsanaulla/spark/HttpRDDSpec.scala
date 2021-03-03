@@ -13,7 +13,7 @@ import org.scalatest.matchers.should.Matchers
 import java.net.URI
 
 class HttpRDDSpec extends AnyFreeSpec with Matchers with MockedHttpServer with SparkBase {
-  override def mockServerPort: Int = 6666
+  override def mockServerPort: Int = 9999
   override def expectations: SetRoutes = { cs =>
     cs.when(
         request()

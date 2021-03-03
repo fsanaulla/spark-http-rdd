@@ -10,9 +10,11 @@ libraryDependencies ++= Seq(
 // test deps
 libraryDependencies ++= Seq(
   "org.scalatest"   %% "scalatest"       % "3.2.3"  % "it",
-  "org.mock-server" % "mockserver-netty" % "5.11.1" % "it" excludeAll (
-    ExclusionRule("com.fasterxml.jackson.core", "jackson-annotations"),
-    ExclusionRule("com.fasterxml.jackson.core", "jackson-core"),
-    ExclusionRule("com.fasterxml.jackson.core", "jackson-databind")
-  )
+  "org.mock-server" % "mockserver-netty" % "5.11.1" % "it"
 )
+
+dependencyOverrides ++= Seq(
+  "com.fasterxml.jackson.core" % "jackson-databind",
+  "com.fasterxml.jackson.core" % "jackson-core",
+  "com.fasterxml.jackson.core" % "jackson-annotations"
+).map(_ % "2.6.7").map(_ % "it")
