@@ -5,13 +5,15 @@ import org.mockserver.integration.ClientAndServer
 import org.mockserver.mock.Expectation
 import org.scalatest.{BeforeAndAfterAll, Suite}
 
+import scala.util.Random
+
 /**
   * Simple HTTP web server mock
   */
 trait MockedHttpServer extends BeforeAndAfterAll { self: Suite =>
 
   /* port that should be used during test execution */
-  def mockServerPort: Int = 9999
+  def mockServerPort: Int
 
   // Example
   //
@@ -44,7 +46,16 @@ trait MockedHttpServer extends BeforeAndAfterAll { self: Suite =>
 
   override def afterAll(): Unit = {
     server.stop()
+    checkIfRunning()
     super.afterAll()
+  }
+
+  private def checkIfRunning(): Unit = {
+    if (!server.isRunning) ()
+    else {
+      Thread.sleep(1000)
+      checkIfRunning()
+    }
   }
 }
 

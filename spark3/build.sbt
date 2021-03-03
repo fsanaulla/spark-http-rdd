@@ -8,7 +8,10 @@ libraryDependencies ++= Seq(
 
 // test deps
 libraryDependencies ++= Seq(
-  "org.scalatest"    %% "scalatest"       % "3.2.3"      % "it",
-  "org.mock-server"  % "mockserver-netty" % "5.11.1"     % "it",
-  "org.apache.spark" %% "spark-sql"       % sparkVersion % "it"
+  "org.scalatest"   %% "scalatest"       % "3.2.3"  % "it",
+  "org.mock-server" % "mockserver-netty" % "5.11.1" % "it" excludeAll (
+    ExclusionRule("com.fasterxml.jackson.core", "jackson-annotations"),
+    ExclusionRule("com.fasterxml.jackson.core", "jackson-core"),
+    ExclusionRule("com.fasterxml.jackson.core", "jackson-databind")
+  )
 )

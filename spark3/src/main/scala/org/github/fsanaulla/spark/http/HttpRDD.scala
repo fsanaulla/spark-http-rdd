@@ -41,7 +41,7 @@ final class HttpRDD[T: ClassTag](
       val is: InputStream       = response.getEntity.getContent
       val iterator: Iterator[T] = iterable(is)
 
-      override def getNext(): T = {
+      override def getNext: T = {
         if (iterator.hasNext) iterator.next()
         else {
           finished = true

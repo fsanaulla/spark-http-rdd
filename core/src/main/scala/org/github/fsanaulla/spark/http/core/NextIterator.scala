@@ -19,7 +19,7 @@ abstract class NextIterator[U] extends Iterator[U] {
     *
     * @return U, or set 'finished' when done
     */
-  protected def getNext(): U
+  protected def getNext: U
 
   /**
     * Method for subclasses to implement when all elements have been successfully
@@ -52,7 +52,7 @@ abstract class NextIterator[U] extends Iterator[U] {
   override def hasNext: Boolean = {
     if (!finished) {
       if (!gotNext) {
-        nextValue = getNext()
+        nextValue = getNext
         if (finished) {
           closeIfNeeded()
         }
