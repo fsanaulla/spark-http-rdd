@@ -11,9 +11,10 @@ import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.should.Matchers
 
 import java.net.URI
+import java.util.concurrent.ThreadLocalRandom
 
 class HttpRDDSpec extends AnyFreeSpec with Matchers with MockedHttpServer with SparkBase {
-  override def mockServerPort: Int = 8888
+  override def mockServerPort: Int = ThreadLocalRandom.current().nextInt(5000, 9999)
   override def expectations: SetRoutes = { cs =>
     cs.when(
         request()

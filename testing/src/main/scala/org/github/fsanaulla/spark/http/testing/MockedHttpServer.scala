@@ -5,8 +5,6 @@ import org.mockserver.integration.ClientAndServer
 import org.mockserver.mock.Expectation
 import org.scalatest.{BeforeAndAfterAll, Suite}
 
-import scala.util.Random
-
 /**
   * Simple HTTP web server mock
   */
