@@ -8,7 +8,11 @@ trait SparkBase extends BeforeAndAfterAll { suite: Suite =>
   protected var sc: SparkContext = _
 
   override def beforeAll(): Unit = {
-    val conf = new SparkConf().setAppName("appName").setMaster("local[*]")
+    val conf = new SparkConf()
+      .setAppName("appName")
+      .setMaster("local[*]")
+      .set("spark.driver.bindAddress", "127.0.0.1")
+
     sc = new SparkContext(conf)
     super.beforeAll()
   }

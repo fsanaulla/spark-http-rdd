@@ -4,7 +4,6 @@ ThisBuild / parallelExecution := false
 
 lazy val root = project
   .in(file("."))
-  .settings(parallelExecution in IntegrationTest := false)
   .aggregate(Seq(core, spark2, spark3, testing).flatMap(_.projectRefs): _*)
 
 lazy val core = (projectMatrix in file("core"))
@@ -15,9 +14,9 @@ lazy val testing = (projectMatrix in file("testing"))
   .settings(
     name := "spark-http-rdd-testing",
     libraryDependencies ++= Seq(
-      "org.scalatest"   %% "scalatest"            % "3.2.3",
-      "org.mock-server" % "mockserver-netty"      % "5.11.1",
-      "com.dimafeng"    %% "testcontainers-scala" % "0.39.3"
+      Dependencies.scalaTest,
+      Dependencies.mockServerNetty,
+      Dependencies.testContainersScala
     )
   )
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
@@ -26,16 +25,12 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
     name := "spark2-http-rdd",
     libraryDependencies ++= Seq(
-      "org.apache.spark"          %% "spark-core"      % "2.4.7" % Provided,
-      "org.apache.httpcomponents" % "httpclient"       % "4.5.13",
-      "org.scalatest"             %% "scalatest"       % "3.2.3" % "it",
-      "org.mock-server"           % "mockserver-netty" % "5.11.1" % "it"
+      "org.apache.spark"          %% "spark-core" % "2.4.7" % Provided,
+      "org.apache.httpcomponents" % "httpclient"  % "4.5.13"
     ),
-    dependencyOverrides ++= Seq(
-      "com.fasterxml.jackson.core" % "jackson-databind",
-      "com.fasterxml.jackson.core" % "jackson-core",
-      "com.fasterxml.jackson.core" % "jackson-annotations"
-    ).map(_ % "2.7.0").map(_ % "it")
+    dependencyOverrides ++= Dependencies.jacksonOverrides
+      .map(_ % Dependencies.Versions.jacksonForSpark2)
+      .map(_ % "it")
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
@@ -48,21 +43,16 @@ lazy val spark3 = (projectMatrix in file("spark3"))
     crossPaths := false,
     name := "spark3-http-rdd",
     libraryDependencies ++= Seq(
-      "org.apache.spark" %% "spark-core"      % "3.1.1"  % Provided,
-      "org.scalatest"    %% "scalatest"       % "3.2.3"  % "it",
-      "org.mock-server"  % "mockserver-netty" % "5.11.1" % "it"
+      "org.apache.spark" %% "spark-core" % "3.1.1" % Provided
     ),
-    dependencyOverrides ++= Seq(
-      "com.fasterxml.jackson.core" % "jackson-databind",
-      "com.fasterxml.jackson.core" % "jackson-core",
-      "com.fasterxml.jackson.core" % "jackson-annotations"
-    ).map(_ % "2.10.0").map(_ % "it")
+    dependencyOverrides ++= Dependencies.jacksonOverrides
+      .map(_ % Dependencies.Versions.jacksonForSpark3)
+      .map(_ % "it")
   )
   .dependsOn(testing % "it")
   .configure(itTestConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.12.12"))
 
 def itTestConfiguration: Project => Project =
-  _.settings(Defaults.itSettings)
-    .configs(IntegrationTest)
+  _.settings(Defaults.itSettings).configs(IntegrationTest)
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
