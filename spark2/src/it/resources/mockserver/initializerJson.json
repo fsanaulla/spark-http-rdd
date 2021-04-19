@@ -1,0 +1,18 @@
+[
+  {
+    "httpRequest": {
+      "path": "/data/1"
+    },
+    "httpResponse": {
+      "body": "{\"text\":1}\n"
+    }
+  },
+  {
+    "httpRequest": {
+      "path": "/data/2"
+    },
+    "httpResponse": {
+      "body": "{\"text\":2}\n"
+    }
+  }
+]

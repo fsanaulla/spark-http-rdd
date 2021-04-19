@@ -3,4 +3,5 @@
 /.idea
 target/
 .bsp
-/.sbt
+.sbt
+.bloop

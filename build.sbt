@@ -4,23 +4,20 @@ ThisBuild / parallelExecution := false
 
 lazy val root = project
   .in(file("."))
+  .settings(parallelExecution in IntegrationTest := false)
   .aggregate(Seq(core, spark2, spark3, testing).flatMap(_.projectRefs): _*)
 
 lazy val core = (projectMatrix in file("core"))
-  .settings(
-    name := "spark-http-rdd-core",
-    libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.2.3" % Test
-    )
-  )
+  .settings(name := "spark-http-rdd-core")
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
     name := "spark-http-rdd-testing",
     libraryDependencies ++= Seq(
-      "org.scalatest"   %% "scalatest"       % "3.2.3",
-      "org.mock-server" % "mockserver-netty" % "5.11.1"
+      "org.scalatest"   %% "scalatest"            % "3.2.3",
+      "org.mock-server" % "mockserver-netty"      % "5.11.1",
+      "com.dimafeng"    %% "testcontainers-scala" % "0.39.3"
     )
   )
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
@@ -29,7 +26,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
     name := "spark2-http-rdd",
     libraryDependencies ++= Seq(
-      "org.apache.spark"          %% "spark-core"      % "2.4.6" % Provided,
+      "org.apache.spark"          %% "spark-core"      % "2.4.7" % Provided,
       "org.apache.httpcomponents" % "httpclient"       % "4.5.13",
       "org.scalatest"             %% "scalatest"       % "3.2.3" % "it",
       "org.mock-server"           % "mockserver-netty" % "5.11.1" % "it"
@@ -38,7 +35,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
       "com.fasterxml.jackson.core" % "jackson-databind",
       "com.fasterxml.jackson.core" % "jackson-core",
       "com.fasterxml.jackson.core" % "jackson-annotations"
-    ).map(_ % "2.6.7").map(_ % "it")
+    ).map(_ % "2.7.0").map(_ % "it")
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
@@ -51,7 +48,7 @@ lazy val spark3 = (projectMatrix in file("spark3"))
     crossPaths := false,
     name := "spark3-http-rdd",
     libraryDependencies ++= Seq(
-      "org.apache.spark" %% "spark-core"      % "3.1.0"  % Provided,
+      "org.apache.spark" %% "spark-core"      % "3.1.1"  % Provided,
       "org.scalatest"    %% "scalatest"       % "3.2.3"  % "it",
       "org.mock-server"  % "mockserver-netty" % "5.11.1" % "it"
     ),

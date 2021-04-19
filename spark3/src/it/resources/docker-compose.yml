@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  mockserver:
+    build: mockserver
+    ports:
+      - "1080:1080"
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializerJson.json
