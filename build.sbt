@@ -8,6 +8,7 @@ lazy val root = project
 
 lazy val core = (projectMatrix in file("core"))
   .settings(name := "spark-http-rdd-core")
+  .configure(defaultConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
 
 lazy val testing = (projectMatrix in file("testing"))
@@ -19,6 +20,7 @@ lazy val testing = (projectMatrix in file("testing"))
       Dependencies.testContainersScala
     )
   )
+  .configure(defaultConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
 
 lazy val spark2 = (projectMatrix in file("spark2"))
@@ -34,24 +36,27 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
+  .configure(defaultConfiguration)
   .configure(itTestConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
 
 lazy val spark3 = (projectMatrix in file("spark3"))
-  .dependsOn(core)
   .settings(
     crossPaths := false,
     name := "spark3-http-rdd",
-    libraryDependencies ++= Seq(
-      "org.apache.spark" %% "spark-core" % "3.1.1" % Provided
-    ),
+    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.1" % Provided,
     dependencyOverrides ++= Dependencies.jacksonOverrides
       .map(_ % Dependencies.Versions.jacksonForSpark3)
       .map(_ % "it")
   )
+  .dependsOn(core)
   .dependsOn(testing % "it")
+  .configure(defaultConfiguration)
   .configure(itTestConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.12.12"))
+
+def defaultConfiguration: Project => Project =
+  _.settings(Settings.base).enablePlugins(AutomateHeaderPlugin)
 
 def itTestConfiguration: Project => Project =
   _.settings(Defaults.itSettings).configs(IntegrationTest)
