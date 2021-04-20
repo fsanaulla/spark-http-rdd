@@ -16,7 +16,6 @@ lazy val testing = (projectMatrix in file("testing"))
     name := "spark-http-rdd-testing",
     libraryDependencies ++= Seq(
       Dependencies.scalaTest,
-      Dependencies.mockServerNetty,
       Dependencies.testContainersScala
     )
   )
@@ -29,10 +28,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
     libraryDependencies ++= Seq(
       "org.apache.spark"          %% "spark-core" % "2.4.7" % Provided,
       "org.apache.httpcomponents" % "httpclient"  % "4.5.13"
-    ),
-    dependencyOverrides ++= Dependencies.jacksonOverrides
-      .map(_ % Dependencies.Versions.jacksonForSpark2)
-      .map(_ % "it")
+    )
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
@@ -44,10 +40,7 @@ lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
     crossPaths := false,
     name := "spark3-http-rdd",
-    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.1" % Provided,
-    dependencyOverrides ++= Dependencies.jacksonOverrides
-      .map(_ % Dependencies.Versions.jacksonForSpark3)
-      .map(_ % "it")
+    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.1" % Provided
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
