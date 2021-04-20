@@ -1,3 +1,4 @@
+name: Scala Steward CI
 # This workflow will launch at 00:00 every Sunday
 on:
   schedule:
