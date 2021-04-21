@@ -1,4 +1,4 @@
-addSbtPlugin("com.eed3si9n"      % "sbt-projectmatrix" % "0.6.0")
+addSbtPlugin("com.eed3si9n"      % "sbt-projectmatrix" % "0.7.0")
 addSbtPlugin("ch.epfl.scala"     % "sbt-bloop"         % "1.4.8")
 addSbtPlugin("org.xerial.sbt"    % "sbt-sonatype"      % "3.9.7")
 addSbtPlugin("com.jsuereth"      % "sbt-pgp"           % "2.0.0")
