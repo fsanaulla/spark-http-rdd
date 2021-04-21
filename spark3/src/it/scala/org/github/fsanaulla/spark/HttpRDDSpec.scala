@@ -20,9 +20,7 @@ class HttpRDDSpec
 
     "should be able to fetch data" in {
       val uriPartitioner: Array[URIModifier] = Array(
-        URIModifier.fromFunction(
-          (uri: URI) => uri.addPath("/data/1")
-        ),
+        URIModifier.fromFunction((uri: URI) => uri.addPath("/data/1")),
         URIModifier.fromFunction(
           _.addPath("/data/2")
         )

@@ -23,8 +23,7 @@ abstract class NextIterator[U] extends Iterator[U] {
   private var closed       = false
   protected var finished   = false
 
-  /**
-    * Method for subclasses to implement to provide the next element.
+  /** Method for subclasses to implement to provide the next element.
     *
     * If no next element is available, the subclass should set `finished`
     * to `true` and may return any value (it will be ignored).
@@ -37,8 +36,7 @@ abstract class NextIterator[U] extends Iterator[U] {
     */
   protected def getNext: U
 
-  /**
-    * Method for subclasses to implement when all elements have been successfully
+  /** Method for subclasses to implement when all elements have been successfully
     * iterated, and the iteration is done.
     *
     * <b>Note:</b> `NextIterator` cannot guarantee that `close` will be
@@ -50,8 +48,7 @@ abstract class NextIterator[U] extends Iterator[U] {
     */
   protected def close()
 
-  /**
-    * Calls the subclass-defined close method, but only once.
+  /** Calls the subclass-defined close method, but only once.
     *
     * Usually calling `close` multiple times should be fine, but historically
     * there have been issues with some InputFormats throwing exceptions.

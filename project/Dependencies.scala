@@ -7,6 +7,7 @@ object Dependencies {
     val testContainersScala = "0.39.3"
   }
 
-  val scalaTest           = "org.scalatest" %% "scalatest"            % Versions.scalaTest
-  val testContainersScala = "com.dimafeng"  %% "testcontainers-scala" % Versions.testContainersScala
+  val scalaTest = "org.scalatest" %% "scalatest" % Versions.scalaTest
+  val testContainersScala =
+    "com.dimafeng" %% "testcontainers-scala" % Versions.testContainersScala
 }

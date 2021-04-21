@@ -27,8 +27,7 @@ import java.net.URI
 import scala.collection.JavaConverters.asScalaIteratorConverter
 import scala.reflect.ClassTag
 
-/**
-  * RDD that fetches data from HTTP endpoints. we may opensource it in the future
+/** RDD that fetches data from HTTP endpoints. we may opensource it in the future
   */
 final class HttpRDD[T: ClassTag](
     sc: SparkContext,
@@ -91,8 +90,7 @@ final class HttpRDD[T: ClassTag](
 
 object HttpRDD {
 
-  /**
-    * Base ctor that provide possibility to customize you rdd
+  /** Base ctor that provide possibility to customize you rdd
     *
     * @param sc                - spark context
     * @param uri               - request uri
@@ -120,8 +118,7 @@ object HttpRDD {
       httpClientBuilder = httpClientBuilder
     )
 
-  /**
-    * Ctor with predefined amount of functionality, creates RDD from HTTP endpoint
+  /** Ctor with predefined amount of functionality, creates RDD from HTTP endpoint
     *
     * @param sc           - spark context
     * @param uri          - request uri
