@@ -9,7 +9,7 @@ lazy val root = project
 lazy val core = (projectMatrix in file("core"))
   .settings(name := "spark-http-rdd-core")
   .configure(defaultConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.12"))
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
@@ -20,7 +20,7 @@ lazy val testing = (projectMatrix in file("testing"))
     )
   )
   .configure(defaultConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.12"))
 
 lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
@@ -34,7 +34,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .dependsOn(testing % "it")
   .configure(defaultConfiguration)
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.12"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.12"))
 
 lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
