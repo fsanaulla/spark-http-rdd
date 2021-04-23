@@ -40,8 +40,7 @@ val uriPartitioner: Array[URIModifier] = Array(
     // uri modification logic, 
     // for example appending path, adding query params etc
   },
-.
-..
+  ...
 )
 ```
 
@@ -49,7 +48,7 @@ val uriPartitioner: Array[URIModifier] = Array(
 base URI for separate partition
 
 Then we should define the way how we will work with http endpoint responses. By default it expect to receive line
-separated number of lines where each line will be processed as separate entity during process of response mapping
+separated number of rows where each row will be processed as separate entity during process of response mapping
 
 ```scala
 val mapping: String => T = ??? 
@@ -58,15 +57,13 @@ val mapping: String => T = ???
 And then you can create our RDD:
 
 ```scala
-val rdd =
+val rdd: RDD[T] =
   HttpRDD.create(
     sc,
     baseUri,
     uriPartitioner,
     mapping
   )
-
-rdd.collect().toList shouldEqual List("{\"text\":1}", "{\"text\":2}")
 ```
 
 More details available in the source code. Also as an example you can use integration tests
