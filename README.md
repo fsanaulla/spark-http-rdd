@@ -44,7 +44,7 @@ val uriPartitioner: Array[URIModifier] = Array(
 )
 ```
 
-**Important**: Number of `URIModifier` should correspond to desirable amount of partitions. Each URI will be used as a
+**Important**: Number of `URIModifier` should correspond to desired amount of partitions. Each URI will be used as a
 base URI for separate partition
 
 Then we should define the way how we will work with http endpoint responses. By default it expect to receive line
