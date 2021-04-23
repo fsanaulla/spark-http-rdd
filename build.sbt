@@ -1,8 +1,7 @@
 ThisBuild / scalaVersion := "2.13.5"
 ThisBuild / organization := "com.github.fsanaulla"
-ThisBuild / parallelExecution := false
 
-lazy val root = project
+lazy val `spark-http-rdd` = project
   .in(file("."))
   .aggregate(Seq(core, spark2, spark3, testing).flatMap(_.projectRefs): _*)
 
