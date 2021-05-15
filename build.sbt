@@ -25,7 +25,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
     name := "spark2-http-rdd",
     libraryDependencies ++= Seq(
-      "org.apache.spark"         %% "spark-core" % "2.4.7" % Provided,
+      "org.apache.spark"         %% "spark-core" % "2.4.8" % Provided,
       "org.apache.httpcomponents" % "httpclient" % "4.5.13"
     )
   )
