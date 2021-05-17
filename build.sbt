@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "2.12.13"
+ThisBuild / scalaVersion := "2.13.6"
 ThisBuild / organization := "com.github.fsanaulla"
 
 lazy val `spark-http-rdd` = project
@@ -8,7 +8,7 @@ lazy val `spark-http-rdd` = project
 lazy val core = (projectMatrix in file("core"))
   .settings(name := "spark-http-rdd-core")
   .configure(defaultConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
+  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.13.6"))
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
@@ -19,7 +19,7 @@ lazy val testing = (projectMatrix in file("testing"))
     )
   )
   .configure(defaultConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
+  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.13.6"))
 
 lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
@@ -33,7 +33,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .dependsOn(testing % "it")
   .configure(defaultConfiguration)
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
+  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.13.6"))
 
 lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
@@ -45,7 +45,7 @@ lazy val spark3 = (projectMatrix in file("spark3"))
   .dependsOn(testing % "it")
   .configure(defaultConfiguration)
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.12.13"))
+  .jvmPlatform(scalaVersions = Seq("2.13.6"))
 
 def defaultConfiguration: Project => Project =
   _.settings(Settings.base).enablePlugins(AutomateHeaderPlugin)
