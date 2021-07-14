@@ -1,7 +1,7 @@
 import Settings.Owner
 import xerial.sbt.Sonatype._
 
-ThisBuild / scalaVersion := "2.12.14"
+ThisBuild / scalaVersion := "2.13.6"
 ThisBuild / organization := "com.github.fsanaulla"
 ThisBuild / homepage := Some(url(s"${Owner.github}/${Owner.projectName}"))
 ThisBuild / developers += Developer(
@@ -33,7 +33,7 @@ lazy val `spark-http-rdd` = project
 
 lazy val core = (projectMatrix in file("core"))
   .settings(name := "spark-http-rdd-core")
-  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.13.6"))
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
@@ -44,7 +44,7 @@ lazy val testing = (projectMatrix in file("testing"))
       Dependencies.testContainersScala
     )
   )
-  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.13.6"))
 
 lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
@@ -57,7 +57,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .dependsOn(core)
   .dependsOn(testing % "it")
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.13.6"))
 
 lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
@@ -68,7 +68,7 @@ lazy val spark3 = (projectMatrix in file("spark3"))
   .dependsOn(core)
   .dependsOn(testing % "it")
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.13.6"))
 
 def license: Project => Project =
   _.settings(
