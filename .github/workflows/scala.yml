@@ -1,4 +1,4 @@
-name: Scala CI
+name: Scala Testing Pipeline
 
 on:
   push:
