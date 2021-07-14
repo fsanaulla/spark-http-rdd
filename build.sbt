@@ -1,25 +1,56 @@
+import Settings.Owner
+import sbt.Keys.startYear
+import sbt.librarymanagement.{Developer, ScmInfo}
+import sbt.{ThisBuild, url}
+import xerial.sbt.Sonatype.GitHubHosting
+
 ThisBuild / scalaVersion := "2.12.13"
 ThisBuild / organization := "com.github.fsanaulla"
+ThisBuild / homepage := Some(url(s"${Owner.github}/${Owner.projectName}"))
+ThisBuild / developers += Developer(
+  id = Owner.id,
+  name = Owner.fullName,
+  email = Owner.email,
+  url = url(Owner.github)
+)
+
+// publish
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url(s"${Owner.github}/${Owner.projectName}"),
+    s"scm:git@github.com:${Owner.id}/${Owner.projectName}.git"
+  )
+)
+ThisBuild / publishTo := sonatypePublishToBundle.value
+ThisBuild / sonatypeBundleDirectory := (ThisBuild / baseDirectory).value / "target" / "sonatype-staging" / s"${version.value}"
+ThisBuild / sonatypeProjectHosting := Some(
+  GitHubHosting(Owner.github, Owner.projectName, Owner.email)
+)
+ThisBuild / pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray)
 
 lazy val `spark-http-rdd` = project
   .in(file("."))
+  .configure(license)
   .aggregate(Seq(core, spark2, spark3, testing).flatMap(_.projectRefs): _*)
 
 lazy val core = (projectMatrix in file("core"))
-  .settings(name := "spark-http-rdd-core")
-  .configure(defaultConfiguration)
+  .settings(
+    name := "spark-http-rdd-core"
+  )
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
+  .configure(license)
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
     name := "spark-http-rdd-testing",
+    publish / skip := true,
     libraryDependencies ++= Seq(
       Dependencies.scalaTest,
       Dependencies.testContainersScala
     )
   )
-  .configure(defaultConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
+  .configure(license)
 
 lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
@@ -31,9 +62,9 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
-  .configure(defaultConfiguration)
   .configure(itTestConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
+  .configure(license)
 
 lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
@@ -43,12 +74,15 @@ lazy val spark3 = (projectMatrix in file("spark3"))
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
-  .configure(defaultConfiguration)
   .configure(itTestConfiguration)
   .jvmPlatform(scalaVersions = Seq("2.12.13"))
+  .configure(license)
 
-def defaultConfiguration: Project => Project =
-  _.settings(Settings.base).enablePlugins(AutomateHeaderPlugin)
+def license: Project => Project =
+  _.settings(
+    startYear := Some(2021),
+    headerLicense := Some(HeaderLicense.ALv2("2021", Owner.fullName))
+  ).enablePlugins(AutomateHeaderPlugin)
 
 def itTestConfiguration: Project => Project =
   _.settings(Defaults.itSettings).configs(IntegrationTest)
