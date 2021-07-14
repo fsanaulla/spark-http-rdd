@@ -1,4 +1,5 @@
 import Settings.Owner
+import xerial.sbt.Sonatype._
 
 ThisBuild / scalaVersion := "2.12.14"
 ThisBuild / organization := "com.github.fsanaulla"
@@ -23,6 +24,7 @@ ThisBuild / sonatypeProjectHosting := Some(
   GitHubHosting(Owner.github, Owner.projectName, Owner.email)
 )
 ThisBuild / pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray)
+ThisBuild / publishMavenStyle := true
 
 lazy val `spark-http-rdd` = project
   .in(file("."))
@@ -31,7 +33,7 @@ lazy val `spark-http-rdd` = project
 
 lazy val core = (projectMatrix in file("core"))
   .settings(name := "spark-http-rdd-core")
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.14"))
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
@@ -42,7 +44,7 @@ lazy val testing = (projectMatrix in file("testing"))
       Dependencies.testContainersScala
     )
   )
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.14"))
 
 lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
@@ -55,7 +57,7 @@ lazy val spark2 = (projectMatrix in file("spark2"))
   .dependsOn(core)
   .dependsOn(testing % "it")
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.14"))
+  .jvmPlatform(scalaVersions = Seq("2.11.12", "2.12.14"))
 
 lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
