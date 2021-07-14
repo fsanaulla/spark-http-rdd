@@ -1,10 +1,4 @@
-import Settings.Owner
-import sbt.Keys.startYear
-import sbt.librarymanagement.{Developer, ScmInfo}
-import sbt.{ThisBuild, url}
-import xerial.sbt.Sonatype.GitHubHosting
-
-ThisBuild / scalaVersion := "2.12.13"
+ThisBuild / scalaVersion := "2.12.14"
 ThisBuild / organization := "com.github.fsanaulla"
 ThisBuild / homepage := Some(url(s"${Owner.github}/${Owner.projectName}"))
 ThisBuild / developers += Developer(
@@ -34,11 +28,9 @@ lazy val `spark-http-rdd` = project
   .aggregate(Seq(core, spark2, spark3, testing).flatMap(_.projectRefs): _*)
 
 lazy val core = (projectMatrix in file("core"))
-  .settings(
-    name := "spark-http-rdd-core"
-  )
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
-  .configure(license)
+  .settings(name := "spark-http-rdd-core")
+  .configure(defaultConfiguration)
+  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.14"))
 
 lazy val testing = (projectMatrix in file("testing"))
   .settings(
@@ -49,22 +41,21 @@ lazy val testing = (projectMatrix in file("testing"))
       Dependencies.testContainersScala
     )
   )
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
-  .configure(license)
+  .configure(defaultConfiguration)
+  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.14"))
 
 lazy val spark2 = (projectMatrix in file("spark2"))
   .settings(
     name := "spark2-http-rdd",
     libraryDependencies ++= Seq(
-      "org.apache.spark"         %% "spark-core" % "2.4.7" % Provided,
+      "org.apache.spark"         %% "spark-core" % "2.4.8" % Provided,
       "org.apache.httpcomponents" % "httpclient" % "4.5.13"
     )
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.13"))
-  .configure(license)
+  .jvmPlatform(scalaVersions = Seq("2.11.8", "2.12.14"))
 
 lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
@@ -75,8 +66,7 @@ lazy val spark3 = (projectMatrix in file("spark3"))
   .dependsOn(core)
   .dependsOn(testing % "it")
   .configure(itTestConfiguration)
-  .jvmPlatform(scalaVersions = Seq("2.12.13"))
-  .configure(license)
+  .jvmPlatform(scalaVersions = Seq("2.12.14"))
 
 def license: Project => Project =
   _.settings(
