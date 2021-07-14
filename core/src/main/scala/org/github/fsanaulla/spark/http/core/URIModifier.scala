@@ -23,6 +23,10 @@ trait URIModifier extends Serializable {
 }
 
 object URIModifier {
+  def identity: URIModifier = new URIModifier {
+    override def modify(uri: URI): URI = uri
+  }
+
   def fromFunction(f: URI => URI): URIModifier = new URIModifier {
     override def modify(uri: URI): URI = f(uri)
   }
