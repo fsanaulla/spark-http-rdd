@@ -1,3 +1,5 @@
+import Settings.Owner
+
 ThisBuild / scalaVersion := "2.12.14"
 ThisBuild / organization := "com.github.fsanaulla"
 ThisBuild / homepage := Some(url(s"${Owner.github}/${Owner.projectName}"))
