@@ -3,6 +3,7 @@ import xerial.sbt.Sonatype._
 
 ThisBuild / scalaVersion := "2.12.14"
 ThisBuild / organization := "com.github.fsanaulla"
+ThisBuild / description := "RDD primitive for fetching data from an HTTP source "
 ThisBuild / homepage := Some(url(s"${Owner.github}/${Owner.projectName}"))
 ThisBuild / developers += Developer(
   id = Owner.id,
