@@ -1,4 +1,4 @@
-name: Publish Artifacts to OSS Sonatyep
+name: Publish Artifacts to OSS Sonatype
 on:
   workflow_dispatch:
 
@@ -15,5 +15,9 @@ jobs:
         run: sbt test
       - name: Run integration tests
         run: sbt it:test
-      - name: Publish
+      - name: Publish artifacts
+        env:
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          SONATYPE_LOGIN: ${{ secrets.SONATYPE_LOGIN }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: sbt "; + publishSigned; sonatypeBundleRelease"
