@@ -15,10 +15,14 @@ jobs:
         run: sbt test
       - name: Run integration tests
         run: sbt it:test
+      - name: Import GPG private key
+        uses: crazy-max/ghaction-import-gpg@v1
+        env: 
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
       - name: Publish artifacts
         env:
           PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
           SONATYPE_LOGIN: ${{ secrets.SONATYPE_LOGIN }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: sbt "; + publishSigned; sonatypeBundleRelease"
