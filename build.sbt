@@ -24,6 +24,7 @@ ThisBuild / sonatypeBundleDirectory := (ThisBuild / baseDirectory).value / "targ
 ThisBuild / sonatypeProjectHosting := Some(
   GitHubHosting(Owner.github, Owner.projectName, Owner.email)
 )
+ThisBuild / licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 ThisBuild / pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray)
 ThisBuild / publishMavenStyle := true
 
