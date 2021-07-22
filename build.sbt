@@ -68,7 +68,7 @@ lazy val spark3 = (projectMatrix in file("spark3"))
   .settings(
     crossPaths := false,
     name := "spark3-http-rdd",
-    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.1" % Provided
+    libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.2" % Provided
   )
   .dependsOn(core)
   .dependsOn(testing % "it")
