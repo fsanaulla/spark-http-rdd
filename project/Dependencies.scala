@@ -3,9 +3,9 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val scalaTest           = "3.2.9"
+    val scalaTest           = "3.2.10"
     val mockServerNetty     = "5.11.1"
-    val testContainersScala = "0.39.7"
+    val testContainersScala = "0.39.8"
   }
 
   val scalaTest = "org.scalatest" %% "scalatest" % Versions.scalaTest
